@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Test case 1 (findFreeBlock)");
@@ -51,5 +55,17 @@ public class Main {
         test2$book.printPeriod(3);
         System.out.println("Printing period 4");
         test2$book.printPeriod(4);
+
+        int fulfilled = read();
+    }
+
+    public static int read() throws FileNotFoundException {
+        int fulfilled = 0;
+
+        File schedulesFile = new File("Schedules.txt");
+        Scanner schedulesScanner = new Scanner(schedulesFile);
+        while (schedulesScanner.hasNextLine()) {
+
+        }
     }
 }
