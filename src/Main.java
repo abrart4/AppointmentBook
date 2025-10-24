@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Test case 1 (findFreeBlock)");
         boolean[][] test1$schedule = new boolean[8][60];
         AppointmentBook test1$book = new AppointmentBook(test1$schedule);
@@ -57,6 +57,7 @@ public class Main {
         test2$book.printPeriod(4);
 
         int fulfilled = read();
+        System.out.println(fulfilled);
     }
 
     public static int read() throws FileNotFoundException {
@@ -65,7 +66,22 @@ public class Main {
         File schedulesFile = new File("Schedules.txt");
         Scanner schedulesScanner = new Scanner(schedulesFile);
         while (schedulesScanner.hasNextLine()) {
-
+            boolean[][] schedule = new boolean[8][60];
+            for (int period = 0; period < 8; period ++) {
+                for (int availableNumber = 0; availableNumber < 60; availableNumber++) {
+                    boolean isMinuteAvailable = schedulesScanner.nextBoolean();
+                    schedule[period][availableNumber] = isMinuteAvailable;
+                }
+            }
+            AppointmentBook book = new AppointmentBook(schedule);
+            int beginningPeriod = schedulesScanner.nextInt();
+            int endPeriod = schedulesScanner.nextInt();
+            int length = schedulesScanner.nextInt();
+            boolean isAppointmentPossible = book.makeAppointment(beginningPeriod, endPeriod, length);
+            if (isAppointmentPossible) {
+                fulfilled ++;
+            }
         }
+        return fulfilled;
     }
 }
